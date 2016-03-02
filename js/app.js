@@ -15,17 +15,32 @@ $(document).ready(function(){
 	});
 
     //initiate the hot/cold game
-    var count = 0;
+    
+  var count = 0;//can't be inside click function bc it would start from zero on every click
   
   $("#guessButton").click(function(event) {
     event.preventDefault();
     
+
     count++;
-    $("#count").html(+count);
+    $("#count").html(count);
     
     var guessValue = $("#userGuess").val();
+    
 
-    function validateNum (guessNum) {
+    var listItem ="<li>" + guessValue + "</li>";
+    $("#guessList").append(listItem);
+    // return false;
+    validateNum(guessValue);
+
+    var compareTotal = compareValues(guessValue, generatedNum);
+
+    var guessResult = calculateHotCold(compareTotal);
+
+    append(guessResult);
+  });
+
+  function validateNum (guessNum) {
       console.log(typeof guessNum); 
       if (isNaN(guessNum) || guessNum < 1 || guessNum > 100) {
         alert("That is not a valid number choice. Please pick a number between 1 and 100")
@@ -33,27 +48,7 @@ $(document).ready(function(){
         return guessNum;
       }
     }
-    
-
-    var listItem ="<li>" + guessValue + "</li>";
-    $("#guessList").append(listItem);
-    // return false;
-    console.log(guessValue);
-    validateNum(guessValue);
-
-    var compareTotal = compareValues(guessValue, generatedNum);
-    // console.log(compareTotal);
-    var guessResult = calculateHotCold(compareTotal);
-    // console.log(guessResult);
-    append(guessResult);
-  });
-
-  //count the number of guesses
-  
-    // $("#guessButton").click(function() {
       
-
-
   //Start new game on click
   $('.new').click(function() {
       location.reload();
