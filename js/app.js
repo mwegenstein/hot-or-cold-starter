@@ -21,7 +21,7 @@ $(document).ready(function(){
     event.preventDefault();
     
     count++;
-    $("#count").html(+count);
+    $("#count").html(count);
     
     var guessValue = $("#userGuess").val();
 
